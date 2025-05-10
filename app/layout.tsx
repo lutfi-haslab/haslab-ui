@@ -8,7 +8,7 @@ import { Toaster as SonnerToaster } from '@/components/ui/sonner';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'DashX - Modern Dashboard',
+  title: 'Haslab UI - Modern Dashboard',
   description: 'A modern dashboard template built with Next.js, Tailwind CSS, and shadcn/ui',
 };
 

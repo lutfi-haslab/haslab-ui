@@ -59,7 +59,7 @@ export default function SignUpPage() {
         </div>
         <CardTitle className="text-xl text-center">Create an account</CardTitle>
         <CardDescription className="text-center">
-          Enter your details to create a DashX account
+          Enter your details to create a Haslab UI account
         </CardDescription>
       </CardHeader>
       <CardContent>

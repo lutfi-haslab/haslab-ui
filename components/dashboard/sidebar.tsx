@@ -136,7 +136,7 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
             <span className="font-bold text-primary-foreground">D</span>
           </div>
           {!isCollapsed && (
-            <span className="ml-2 font-bold text-xl">DashX</span>
+            <span className="ml-2 font-bold text-xl">Haslab UI</span>
           )}
         </Link>
       </div>

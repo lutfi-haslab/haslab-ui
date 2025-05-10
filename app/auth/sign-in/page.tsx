@@ -57,7 +57,7 @@ export default function SignInPage() {
             D
           </div>
         </div>
-        <CardTitle className="text-xl text-center">Sign in to DashX</CardTitle>
+        <CardTitle className="text-xl text-center">Sign in to Haslab UI</CardTitle>
         <CardDescription className="text-center">
           Enter your credentials to access your dashboard
         </CardDescription>

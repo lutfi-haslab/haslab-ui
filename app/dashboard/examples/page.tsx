@@ -165,7 +165,7 @@ export default function ExamplesPage() {
                 Default Toast
               </Button>
               <Button
-                variant="success"
+                variant="link"
                 onClick={() => showToast("success")}
               >
                 Success Toast
