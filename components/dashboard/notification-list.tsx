@@ -98,66 +98,69 @@ export function NotificationList({ onNotificationRead }: NotificationListProps) 
   const getTypeStyles = (type: Notification["type"]) => {
     switch (type) {
       case "info":
-        return "bg-primary/10 text-primary";
+        return "bg-info/15 text-info";
       case "warning":
-        return "bg-warning/10 text-warning";
+        return "bg-warning/15 text-warning";
       case "success":
-        return "bg-success/10 text-success";
+        return "bg-success/15 text-success";
       case "error":
-        return "bg-destructive/10 text-destructive";
+        return "bg-destructive/15 text-destructive";
       default:
-        return "bg-primary/10 text-primary";
+        return "bg-info/15 text-info";
     }
   };
 
   const unreadCount = notifications.filter(notification => !notification.read).length;
 
   return (
-    <div className="h-full flex flex-col">
-      <div className="px-1 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Bell className="h-5 w-5" />
-          <h2 className="text-xl font-semibold">Notifications</h2>
+    <div className="flex h-full flex-col">
+      <div className="flex items-center justify-between px-2 py-4">
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/15 text-primary">
+            <Bell className="h-5 w-5" />
+          </div>
+          <div>
+            <h2 className="text-lg font-semibold text-foreground">Notifications</h2>
+            <p className="text-xs uppercase tracking-[0.28em] text-muted-foreground">Stay in the loop</p>
+          </div>
           {unreadCount > 0 && (
-            <Badge variant="secondary" className="ml-2">
+            <Badge variant="default" className="ml-2">
               {unreadCount} new
             </Badge>
           )}
         </div>
         {unreadCount > 0 && (
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            onClick={markAllAsRead}
-          >
+          <Button variant="ghost" size="sm" onClick={markAllAsRead}>
             Mark all as read
           </Button>
         )}
       </div>
-      
-      <Separator />
-      
-      <div className="flex-1 overflow-auto py-2">
+
+      <Separator className="bg-border/40" />
+
+      <div className="flex-1 overflow-auto py-3">
         {notifications.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-center p-6">
-            <Bell className="h-10 w-10 text-muted-foreground mb-2" />
-            <h3 className="font-medium">No notifications</h3>
+          <div className="flex h-full flex-col items-center justify-center gap-2 px-6 text-center">
+            <Bell className="mb-2 h-10 w-10 text-muted-foreground" />
+            <h3 className="text-base font-semibold text-foreground">No notifications</h3>
             <p className="text-sm text-muted-foreground">
               You don't have any notifications at the moment.
             </p>
           </div>
         ) : (
-          <div className="space-y-1">
+          <div className="space-y-2 px-1">
             {notifications.map((notification) => (
               <div 
                 key={notification.id}
                 className={cn(
-                  "p-4 flex items-start gap-4 transition-colors",
-                  notification.read ? "bg-background" : "bg-muted/50"
+                  "flex items-start gap-4 rounded-2xl border border-border/40 px-4 py-3 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-glow-sm",
+                  notification.read 
+                    ? "bg-card/90" 
+                    : "bg-primary/10 shadow-glow-sm"
                 )}
               >
                 <div className={cn(
-                  "shrink-0 h-8 w-8 rounded-full flex items-center justify-center",
+                  "flex h-9 w-9 shrink-0 items-center justify-center rounded-full",
                   getTypeStyles(notification.type)
                 )}>
                   <Bell className="h-4 w-4" />
@@ -172,17 +175,17 @@ export function NotificationList({ onNotificationRead }: NotificationListProps) 
                       <Button 
                         variant="ghost" 
                         size="icon" 
-                        className="h-6 w-6" 
+                        className="h-6 w-6 text-muted-foreground hover:text-foreground" 
                         onClick={() => markAsRead(notification.id)}
                       >
                         <XCircle className="h-4 w-4" />
                       </Button>
                     )}
                   </div>
-                  <p className="text-sm text-muted-foreground line-clamp-2">
+                  <p className="line-clamp-2 text-sm text-muted-foreground">
                     {notification.description}
                   </p>
-                  <p className="text-xs text-muted-foreground mt-1">
+                  <p className="mt-1 text-xs text-muted-foreground/80">
                     {notification.time}
                   </p>
                 </div>
@@ -192,7 +195,7 @@ export function NotificationList({ onNotificationRead }: NotificationListProps) 
         )}
       </div>
       
-      <Separator />
+      <Separator className="bg-border/40" />
       
       <div className="p-4">
         <Button variant="outline" className="w-full" asChild>

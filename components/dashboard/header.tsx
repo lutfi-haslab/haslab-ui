@@ -8,13 +8,15 @@ import { Input } from "@/components/ui/input";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { NotificationList } from "@/components/dashboard/notification-list";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { cn } from "@/lib/utils";
 
 interface HeaderProps {
   title: string;
+  className?: string;
 }
 
-export function Header({ title }: HeaderProps) {
+export function Header({ title, className }: HeaderProps) {
   const router = useRouterState();
   const pathname = router.location.pathname;
   const [notificationCount, setNotificationCount] = useState(3);
@@ -36,16 +38,28 @@ export function Header({ title }: HeaderProps) {
   }
 
   return (
-    <header className="border-b bg-card">
-      <div className="flex h-16 items-center px-6">
+    <header
+      className={cn(
+        "border-b border-border/50 bg-background/70 backdrop-blur-xl",
+        className
+      )}
+    >
+      <div className="flex h-16 items-center px-4 sm:px-6">
         <div className="flex flex-1 items-center justify-between">
           <div>
-            <h1 className="text-xl font-semibold">{title}</h1>
+            <h1 className="text-lg font-semibold text-foreground sm:text-xl">
+              {title}
+            </h1>
             {segments.length > 0 && (
-              <Breadcrumb className="flex items-center text-sm text-muted-foreground">
+              <Breadcrumb className="mt-1 flex items-center text-xs uppercase tracking-[0.28em] text-muted-foreground">
                 <BreadcrumbList>
                   <BreadcrumbItem>
-                    <BreadcrumbLink href="/dashboard">Dashboard</BreadcrumbLink>
+                    <BreadcrumbLink
+                      href="/dashboard"
+                      className="transition-colors hover:text-foreground"
+                    >
+                      Dashboard
+                    </BreadcrumbLink>
                   </BreadcrumbItem>
                   <BreadcrumbSeparator />
                   {segments.map((segment, index) => (
@@ -54,7 +68,10 @@ export function Header({ title }: HeaderProps) {
                         <BreadcrumbLink 
                           href={segment.href}
                           className={cn(
-                            index === segments.length - 1 ? "font-medium text-foreground" : ""
+                            "transition-colors hover:text-foreground",
+                            index === segments.length - 1
+                              ? "font-semibold text-foreground"
+                              : ""
                           )}
                         >
                           {segment.title}
@@ -67,22 +84,28 @@ export function Header({ title }: HeaderProps) {
               </Breadcrumb>
             )}
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
             <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
                 type="search"
                 placeholder="Search..."
-                className="w-[200px] lg:w-[280px] pl-8 rounded-full bg-background"
+                className="w-[200px] rounded-full pl-9 shadow-none transition-all focus-visible:ring-ring/40 lg:w-[280px]"
               />
             </div>
 
+            <ThemeToggle />
+
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="relative">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="relative hover:bg-muted/50 hover:text-foreground"
+                >
                   <Bell className="h-5 w-5" />
                   {notificationCount > 0 && (
-                    <span className="absolute top-1 right-1 h-4 w-4 rounded-full bg-destructive text-xs font-medium text-white flex items-center justify-center">
+                    <span className="absolute top-0.5 right-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-br from-destructive via-destructive/85 to-warning text-xs font-bold text-destructive-foreground shadow-glow-sm animate-pulse">
                       {notificationCount}
                     </span>
                   )}
@@ -95,7 +118,11 @@ export function Header({ title }: HeaderProps) {
               </SheetContent>
             </Sheet>
             
-            <Button variant="ghost" size="icon">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="hover:bg-muted/50 hover:text-foreground"
+            >
               <Settings className="h-5 w-5" />
             </Button>
           </div>

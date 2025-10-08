@@ -99,9 +99,10 @@ const secondaryNavItems: NavItem[] = [
 interface SidebarProps {
   isCollapsed: boolean;
   onToggle: () => void;
+  className?: string;
 }
 
-export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
+export function Sidebar({ isCollapsed, onToggle, className }: SidebarProps) {
   const router = useRouterState();
   const pathname = router.location.pathname;
   const [isMounted, setIsMounted] = useState(false);
@@ -118,11 +119,12 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
   return (
     <div
       className={cn(
-        "flex flex-col border-r bg-card h-screen transition-all duration-300 relative",
-        isCollapsed ? "w-[80px]" : "w-[280px]"
+        "fixed inset-y-0 left-0 z-30 flex h-screen flex-col border-r border-border/50 bg-card/90 text-muted-foreground shadow-glow-lg backdrop-blur-xl transition-all duration-300",
+        isCollapsed ? "w-16" : "w-64",
+        className
       )}
     >
-      <div className="flex h-14 items-center px-4 border-b">
+      <div className="flex h-16 items-center border-b border-border/40 px-3">
         <Link
           to="/dashboard"
           className={cn(
@@ -130,36 +132,36 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
             isCollapsed ? "justify-center w-full" : "justify-start"
           )}
         >
-          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary">
-            <span className="font-bold text-primary-foreground">D</span>
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary via-primary/85 to-secondary text-sm font-semibold text-primary-foreground shadow-glow-sm">
+            H
           </div>
           {!isCollapsed && (
-            <span className="ml-2 font-bold text-xl">Haslab UI</span>
+            <span className="ml-3 text-sm font-semibold text-foreground">
+              Haslab UI
+            </span>
           )}
         </Link>
       </div>
 
-      <Button
-        variant="ghost"
-        size="icon"
-        className="absolute -right-4 top-16 h-8 w-8 rounded-full border bg-background shadow-md"
+      <button
         onClick={onToggle}
+        className="absolute -right-3 top-20 hidden h-8 w-8 items-center justify-center rounded-full border border-border/60 bg-card text-muted-foreground shadow-glow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-glow-md md:flex"
       >
         <ChevronLeft
           className={cn(
-            "h-4 w-4 transition-transform",
+            "h-4 w-4 transition-transform duration-200",
             isCollapsed ? "rotate-180" : "rotate-0"
           )}
         />
-      </Button>
+      </button>
 
       <ScrollArea className="flex-1 py-4">
-        <div className="space-y-6 px-3">
+        <div className="space-y-6 px-2">
           <div className="space-y-2">
             <div
               className={cn(
-                "text-xs font-semibold text-muted-foreground",
-                isCollapsed ? "sr-only" : "px-2"
+                "text-[10px] font-semibold uppercase tracking-[0.32em] text-muted-foreground/70",
+                isCollapsed ? "sr-only" : "px-3"
               )}
             >
               Main
@@ -172,19 +174,22 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
                       <Link
                         to={item.href}
                         className={cn(
-                          "flex items-center rounded-md px-2 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors",
+                          "flex items-center rounded-xl px-3 py-2 text-sm font-medium transition-all duration-200",
                           pathname === item.href
-                            ? "bg-accent text-accent-foreground"
-                            : "text-muted-foreground",
-                          isCollapsed ? "justify-center" : "justify-start"
+                            ? "bg-primary/15 text-foreground shadow-glow-sm"
+                            : "text-muted-foreground hover:bg-muted/40 hover:text-foreground",
+                          isCollapsed ? "justify-center" : "justify-start gap-3"
                         )}
                       >
                         {item.icon}
-                        {!isCollapsed && <span className="ml-2">{item.title}</span>}
+                        {!isCollapsed && <span>{item.title}</span>}
                       </Link>
                     </TooltipTrigger>
                     {isCollapsed && (
-                      <TooltipContent side="right">
+                      <TooltipContent
+                        side="right"
+                        className="border border-border/60 bg-card/95 px-3 py-1 text-xs font-medium text-foreground shadow-glow-sm"
+                      >
                         {item.title}
                       </TooltipContent>
                     )}
@@ -194,13 +199,13 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
             </TooltipProvider>
           </div>
 
-          <Separator />
+          <Separator className="bg-border/40" />
 
           <div className="space-y-2">
             <div
               className={cn(
-                "text-xs font-semibold text-muted-foreground",
-                isCollapsed ? "sr-only" : "px-2"
+                "text-[10px] font-semibold uppercase tracking-[0.32em] text-muted-foreground/70",
+                isCollapsed ? "sr-only" : "px-3"
               )}
             >
               System
@@ -213,19 +218,22 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
                       <Link
                         to={item.href}
                         className={cn(
-                          "flex items-center rounded-md px-2 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors",
+                          "flex items-center rounded-xl px-3 py-2 text-sm font-medium transition-all duration-200",
                           pathname === item.href
-                            ? "bg-accent text-accent-foreground"
-                            : "text-muted-foreground",
-                          isCollapsed ? "justify-center" : "justify-start"
+                            ? "bg-primary/15 text-foreground shadow-glow-sm"
+                            : "text-muted-foreground hover:bg-muted/40 hover:text-foreground",
+                          isCollapsed ? "justify-center" : "justify-start gap-3"
                         )}
                       >
                         {item.icon}
-                        {!isCollapsed && <span className="ml-2">{item.title}</span>}
+                        {!isCollapsed && <span>{item.title}</span>}
                       </Link>
                     </TooltipTrigger>
                     {isCollapsed && (
-                      <TooltipContent side="right">
+                      <TooltipContent
+                        side="right"
+                        className="border border-border/60 bg-card/95 px-3 py-1 text-xs font-medium text-foreground shadow-glow-sm"
+                      >
                         {item.title}
                       </TooltipContent>
                     )}
@@ -237,25 +245,41 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
         </div>
       </ScrollArea>
 
-      <div className={cn("border-t p-4", isCollapsed ? "flex justify-center" : "")}>
+      <div
+        className={cn(
+          "border-t border-border/40 bg-card/90 px-3 py-4",
+          isCollapsed ? "flex justify-center" : ""
+        )}
+      >
         <TooltipProvider delayDuration={0}>
-          <div className={cn(
-            "flex items-center",
-            isCollapsed ? "flex-col space-y-2" : "space-x-3"
-          )}>
+          <div
+            className={cn(
+              "flex items-center",
+              isCollapsed ? "flex-col space-y-2" : "gap-3"
+            )}
+          >
             <Tooltip>
               <TooltipTrigger asChild>
-                <Avatar className="h-9 w-9">
+                <Avatar className="h-10 w-10 border border-border/40 shadow-glow-sm">
                   <AvatarImage src="https://github.com/shadcn.png" alt="Avatar" />
-                  <AvatarFallback>JD</AvatarFallback>
+                  <AvatarFallback className="bg-muted text-foreground font-semibold">
+                    JD
+                  </AvatarFallback>
                 </Avatar>
               </TooltipTrigger>
-              {isCollapsed && <TooltipContent side="right">John Doe</TooltipContent>}
+              {isCollapsed && (
+                <TooltipContent
+                  side="right"
+                  className="border border-border/60 bg-card/95 px-3 py-1 text-xs font-medium text-foreground shadow-glow-sm"
+                >
+                  John Doe
+                </TooltipContent>
+              )}
             </Tooltip>
             
             {!isCollapsed && (
-              <div className="flex flex-col space-y-0.5">
-                <span className="text-sm font-medium">John Doe</span>
+              <div className="flex flex-1 flex-col space-y-0.5">
+                <span className="text-sm font-semibold text-foreground">John Doe</span>
                 <span className="text-xs text-muted-foreground">
                   admin@example.com
                 </span>
@@ -263,25 +287,47 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
             )}
             
             <div className={cn(
-              "flex", 
-              isCollapsed ? "flex-col space-y-2" : "ml-auto space-x-1"
-            )}>
+              "flex",
+              isCollapsed ? "flex-col space-y-2" : "gap-2"
+            )}
+            >
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <ModeToggle variant={isCollapsed ? "ghost" : "ghost"} />
+                  <div className="[&_button]:text-muted-foreground [&_button]:hover:bg-muted/50 [&_button]:hover:text-foreground">
+                    <ModeToggle variant="ghost" />
+                  </div>
                 </TooltipTrigger>
-                {isCollapsed && <TooltipContent side="right">Toggle theme</TooltipContent>}
+                {isCollapsed && (
+                  <TooltipContent
+                    side="right"
+                    className="border border-border/60 bg-card/95 px-3 py-1 text-xs font-medium text-foreground shadow-glow-sm"
+                  >
+                    Toggle theme
+                  </TooltipContent>
+                )}
               </Tooltip>
               
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="ghost" size="icon" asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                    asChild
+                  >
                     <Link to="/auth/sign-in">
                       <LogOut className="h-4 w-4" />
                     </Link>
                   </Button>
                 </TooltipTrigger>
-                {isCollapsed && <TooltipContent side="right">Log out</TooltipContent>}
+                {isCollapsed && (
+                  <TooltipContent
+                    side="right"
+                    className="border border-border/60 bg-card/95 px-3 py-1 text-xs font-medium text-foreground shadow-glow-sm"
+                  >
+                    Log out
+                  </TooltipContent>
+                )}
               </Tooltip>
             </div>
           </div>

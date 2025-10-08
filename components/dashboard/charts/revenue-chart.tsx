@@ -28,7 +28,7 @@ export function RevenueChart() {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--color-border)" />
         <XAxis 
           dataKey="month" 
           axisLine={false}
@@ -36,7 +36,7 @@ export function RevenueChart() {
           tickMargin={10}
           style={{ 
             fontSize: '12px',
-            fill: 'hsl(var(--muted-foreground))'
+            fill: 'var(--color-muted-foreground)'
           }}
         />
         <YAxis 
@@ -51,15 +51,16 @@ export function RevenueChart() {
           }}
           style={{ 
             fontSize: '12px',
-            fill: 'hsl(var(--muted-foreground))'
+            fill: 'var(--color-muted-foreground)'
           }}
         />
         <Tooltip 
           contentStyle={{ 
-            backgroundColor: 'hsl(var(--card))',
-            borderColor: 'hsl(var(--border))',
+            backgroundColor: 'var(--color-card)',
+            borderColor: 'var(--color-border)',
             borderRadius: '0.5rem',
-            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+            boxShadow: '0 16px 40px rgba(15, 23, 42, 0.18)',
+            color: 'var(--color-foreground)',
           }}
           formatter={(value) => [`$${value.toLocaleString()}`, '']}
         />
@@ -69,20 +70,20 @@ export function RevenueChart() {
           iconType="circle" 
           iconSize={8}
           formatter={(value) => (
-            <span style={{ fontSize: '12px', color: 'hsl(var(--foreground))' }}>
+            <span style={{ fontSize: '12px', color: 'var(--color-foreground)' }}>
               {value}
             </span>
           )}
         />
         <Bar 
           dataKey="This Year" 
-          fill="hsl(var(--chart-1))" 
+          fill="var(--color-primary)" 
           radius={[4, 4, 0, 0]} 
           barSize={20}
         />
         <Bar 
           dataKey="Last Year" 
-          fill="hsl(var(--chart-2))" 
+          fill="var(--color-accent)" 
           radius={[4, 4, 0, 0]} 
           barSize={20}
         />

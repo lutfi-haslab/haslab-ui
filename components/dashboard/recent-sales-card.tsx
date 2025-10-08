@@ -79,20 +79,20 @@ export function RecentSalesCard({ className }: RecentSalesCardProps) {
   const getStatusStyles = (status: RecentSale["status"]) => {
     switch (status) {
       case "completed":
-        return "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400";
+        return "bg-success/15 text-success";
       case "pending":
-        return "bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-400";
+        return "bg-warning/15 text-warning";
       case "failed":
-        return "bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-400";
+        return "bg-destructive/15 text-destructive";
       case "refunded":
-        return "bg-slate-100 text-slate-700 dark:bg-slate-500/20 dark:text-slate-400";
+        return "bg-muted/60 text-muted-foreground";
       default:
-        return "bg-slate-100 text-slate-700 dark:bg-slate-500/20 dark:text-slate-400";
+        return "bg-muted/60 text-muted-foreground";
     }
   };
 
   return (
-    <Card className={cn("", className)}>
+    <Card className={cn("hover:-translate-y-0", className)}>
       <CardHeader className="flex flex-row items-start justify-between">
         <div>
           <CardTitle>Recent Sales</CardTitle>
@@ -100,7 +100,7 @@ export function RecentSalesCard({ className }: RecentSalesCardProps) {
             Latest transactions from your customers
           </CardDescription>
         </div>
-        <Button variant="ghost" size="icon">
+        <Button variant="ghost" size="icon" className="hover:bg-muted/60">
           <MoreHorizontal className="h-4 w-4" />
         </Button>
       </CardHeader>
@@ -109,7 +109,7 @@ export function RecentSalesCard({ className }: RecentSalesCardProps) {
           {recentSales.map((sale) => (
             <div key={sale.id} className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <Avatar>
+                <Avatar className="border border-border/40 shadow-glow-sm">
                   <AvatarImage src={sale.avatarSrc} alt={sale.name} />
                   <AvatarFallback>{sale.avatarFallback}</AvatarFallback>
                 </Avatar>

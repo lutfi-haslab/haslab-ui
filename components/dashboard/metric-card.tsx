@@ -24,34 +24,34 @@ export function MetricCard({
   variant = "default",
 }: MetricCardProps) {
   const getTrendColor = () => {
-    if (trendType === "up") return "text-emerald-500";
-    if (trendType === "down") return "text-rose-500";
-    return "text-gray-500";
+    if (trendType === "up") return "text-success";
+    if (trendType === "down") return "text-destructive";
+    return "text-muted-foreground";
   };
 
   const getVariantStyles = () => {
     switch (variant) {
       case "muted":
-        return "bg-muted";
+        return "bg-muted/60";
       case "accent":
-        return "bg-accent";
+        return "bg-gradient-to-br from-primary/12 via-primary/8 to-secondary/12";
       default:
-        return "bg-card";
+        return "";
     }
   };
 
   return (
-    <Card className={cn("transition-all hover:shadow-md", getVariantStyles())}>
-      <CardHeader className="pb-2 flex flex-row items-center justify-between space-y-0">
+    <Card className={cn("transition-all duration-300 hover:-translate-y-1 hover:shadow-glow-md", getVariantStyles())}>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium text-muted-foreground">
           {title}
         </CardTitle>
-        <div className="h-8 w-8 rounded-md bg-muted flex items-center justify-center text-muted-foreground">
+        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-muted/60 text-muted-foreground">
           {icon}
         </div>
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold">{value}</div>
+        <div className="text-3xl font-semibold text-foreground">{value}</div>
         {(change !== undefined || description) && (
           <div className="flex items-center pt-1">
             {change !== undefined && (
@@ -68,7 +68,7 @@ export function MetricCard({
               </div>
             )}
             {description && (
-              <span className="text-xs text-muted-foreground ml-1">
+              <span className="ml-2 text-xs text-muted-foreground/80">
                 {description}
               </span>
             )}

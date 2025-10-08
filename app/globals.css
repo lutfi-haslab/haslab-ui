@@ -1,70 +1,170 @@
-@import 'tailwindcss';
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+@import "tailwindcss";
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+@theme inline {
+  --font-sans: "Inter", "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+
+  --radius-sm: 0.55rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 0.9rem;
 }
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
+    --color-background: hsl(215 33% 98%);
+    --color-foreground: hsl(224 71% 4%);
+    --color-muted: hsl(216 24% 94%);
+    --color-muted-foreground: hsl(222 15% 46%);
+    --color-card: hsl(0 0% 100%);
+    --color-card-foreground: hsl(224 71% 4%);
+    --color-popover: hsl(0 0% 100%);
+    --color-popover-foreground: hsl(224 71% 4%);
+    --color-border: hsl(214 32% 91%);
+    --color-input: hsl(214 32% 91%);
+    --color-ring: hsl(226 64% 52%);
+
+    --background: hsl(215 33% 98%);
+    --foreground: hsl(224 71% 4%);
+    --muted: hsl(216 24% 94%);
+    --muted-foreground: hsl(222 15% 46%);
+    --card: hsl(0 0% 100%);
+    --card-foreground: hsl(224 71% 4%);
+    --popover: hsl(0 0% 100%);
+    --popover-foreground: hsl(224 71% 4%);
+    --border: hsl(214 32% 91%);
+    --input: hsl(214 32% 91%);
+    --ring: hsl(226 64% 52%);
+
+    --color-primary: hsl(235 85% 62%);
+    --color-primary-foreground: hsl(210 40% 98%);
+    --color-secondary: hsl(188 72% 65%);
+    --color-secondary-foreground: hsl(197 78% 9%);
+    --color-accent: hsl(264 84% 72%);
+    --color-accent-foreground: hsl(258 100% 98%);
+    --color-destructive: hsl(348 86% 61%);
+    --color-destructive-foreground: hsl(350 100% 98%);
+    --color-success: hsl(152 70% 46%);
+    --color-success-foreground: hsl(150 86% 96%);
+    --color-info: hsl(221 83% 62%);
+    --color-info-foreground: hsl(220 100% 97%);
+    --color-warning: hsl(38 92% 55%);
+    --color-warning-foreground: hsl(25 90% 13%);
+
+    --primary: hsl(235 85% 62%);
+    --primary-foreground: hsl(210 40% 98%);
+    --secondary: hsl(188 72% 65%);
+    --secondary-foreground: hsl(197 78% 9%);
+    --accent: hsl(264 84% 72%);
+    --accent-foreground: hsl(258 100% 98%);
+    --destructive: hsl(348 86% 61%);
+    --destructive-foreground: hsl(350 100% 98%);
+    --success: hsl(152 70% 46%);
+    --success-foreground: hsl(150 86% 96%);
+    --info: hsl(221 83% 62%);
+    --info-foreground: hsl(220 100% 97%);
+    --warning: hsl(38 92% 55%);
+    --warning-foreground: hsl(25 90% 13%);
+
+    --shadow-glow-sm: 0 8px 24px rgba(31, 41, 55, 0.12);
+    --shadow-glow-md: 0 20px 45px rgba(31, 41, 55, 0.18);
+    --shadow-glow-lg: 0 32px 60px rgba(31, 41, 55, 0.24);
   }
+
+  *,
+  *::before,
+  *::after {
+    border-color: color-mix(in srgb, var(--color-border) 70%, transparent);
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    min-height: 100vh;
+    background-image:
+      radial-gradient(120% 120% at 97% 0%, color-mix(in srgb, var(--color-primary) 12%, transparent) 0%, transparent 48%),
+      radial-gradient(120% 120% at 0% 100%, color-mix(in srgb, var(--color-accent) 14%, transparent) 0%, transparent 52%),
+      linear-gradient(180deg, var(--color-background) 0%, color-mix(in srgb, var(--color-background) 92%, black 8%) 100%);
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-primary) 22%, transparent);
+    color: var(--color-primary-foreground);
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --color-background: hsl(222 48% 6%);
+    --color-foreground: hsl(210 40% 96%);
+    --color-muted: hsl(223 47% 14%);
+    --color-muted-foreground: hsl(215 20% 65%);
+    --color-card: hsl(223 47% 8%);
+    --color-card-foreground: hsl(210 40% 96%);
+    --color-popover: hsl(223 47% 10%);
+    --color-popover-foreground: hsl(210 40% 96%);
+    --color-border: hsl(223 47% 18%);
+    --color-input: hsl(223 47% 18%);
+    --color-ring: hsl(236 100% 73%);
+
+    --color-primary: hsl(236 93% 68%);
+    --color-primary-foreground: hsl(226 100% 12%);
+    --color-secondary: hsl(190 96% 54%);
+    --color-secondary-foreground: hsl(208 100% 12%);
+    --color-accent: hsl(268 86% 75%);
+    --color-accent-foreground: hsl(260 100% 16%);
+    --color-destructive: hsl(355 94% 44%);
+    --color-destructive-foreground: hsl(0 0% 100%);
+    --color-success: hsl(156 72% 42%);
+    --color-success-foreground: hsl(152 84% 96%);
+    --color-info: hsl(218 100% 64%);
+    --color-info-foreground: hsl(212 100% 12%);
+    --color-warning: hsl(45 94% 54%);
+    --color-warning-foreground: hsl(23 96% 14%);
+
+    --background: hsl(222 48% 6%);
+    --foreground: hsl(210 40% 96%);
+    --muted: hsl(223 47% 14%);
+    --muted-foreground: hsl(215 20% 65%);
+    --card: hsl(223 47% 8%);
+    --card-foreground: hsl(210 40% 96%);
+    --popover: hsl(223 47% 10%);
+    --popover-foreground: hsl(210 40% 96%);
+    --border: hsl(223 47% 18%);
+    --input: hsl(223 47% 18%);
+    --ring: hsl(236 100% 73%);
+
+    --primary: hsl(236 93% 68%);
+    --primary-foreground: hsl(226 100% 12%);
+    --secondary: hsl(190 96% 54%);
+    --secondary-foreground: hsl(208 100% 12%);
+    --accent: hsl(268 86% 75%);
+    --accent-foreground: hsl(260 100% 16%);
+    --destructive: hsl(355 94% 44%);
+    --destructive-foreground: hsl(0 0% 100%);
+    --success: hsl(156 72% 42%);
+    --success-foreground: hsl(152 84% 96%);
+    --info: hsl(218 100% 64%);
+    --info-foreground: hsl(212 100% 12%);
+    --warning: hsl(45 94% 54%);
+    --warning-foreground: hsl(23 96% 14%);
+
+    --shadow-glow-sm: 0 8px 24px rgba(15, 23, 42, 0.38);
+    --shadow-glow-md: 0 20px 45px rgba(15, 23, 42, 0.45);
+    --shadow-glow-lg: 0 32px 60px rgba(15, 23, 42, 0.55);
   }
 }
+
+@layer utilities {
+  .glass-panel {
+    background: linear-gradient(180deg, color-mix(in srgb, var(--color-card) 90%, transparent) 0%, color-mix(in srgb, var(--color-card) 80%, transparent) 100%);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-border) 45%, transparent), var(--shadow-glow-md);
+    backdrop-filter: blur(16px);
+  }
+}
+

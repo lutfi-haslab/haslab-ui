@@ -9,6 +9,14 @@ const data = [
 ];
 
 export function ProductSalesChart() {
+  const colors = [
+    'var(--color-primary)',
+    'var(--color-accent)',
+    'var(--color-secondary)',
+    'var(--color-success)',
+    'var(--color-warning)',
+  ];
+
   return (
     <ResponsiveContainer width="100%" height={190}>
       <PieChart>
@@ -21,19 +29,22 @@ export function ProductSalesChart() {
           paddingAngle={1}
           dataKey="value"
         >
-          {data.map((_, index) => (
-            <Cell 
-              key={`cell-${index}`} 
-              fill={`hsl(var(--chart-${(index % 5) + 1}))`} 
-            />
-          ))}
+          {data.map((_, index) => {
+            return (
+              <Cell 
+                key={`cell-${index}`} 
+                fill={colors[index % colors.length]} 
+              />
+            );
+          })}
         </Pie>
         <Tooltip 
           contentStyle={{ 
-            backgroundColor: 'hsl(var(--card))',
-            borderColor: 'hsl(var(--border))',
+            backgroundColor: 'var(--color-card)',
+            borderColor: 'var(--color-border)',
             borderRadius: '0.5rem',
-            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+            boxShadow: '0 16px 40px rgba(15, 23, 42, 0.18)',
+            color: 'var(--color-foreground)',
           }}
           formatter={(value) => [`${value}%`, '']}
         />
@@ -46,7 +57,7 @@ export function ProductSalesChart() {
           formatter={(value) => (
             <span style={{ 
               fontSize: '12px', 
-              color: 'hsl(var(--foreground))',
+              color: 'var(--color-foreground)',
               marginLeft: '8px'
             }}>
               {value}

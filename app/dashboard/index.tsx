@@ -59,10 +59,10 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <h2 className="text-2xl font-bold">Welcome back, John</h2>
-          <p className="text-muted-foreground">
+          <h2 className="text-3xl font-semibold text-foreground">Welcome back, John</h2>
+          <p className="text-sm text-muted-foreground">
             Here's an overview of your business performance
           </p>
         </div>
@@ -71,9 +71,9 @@ export default function DashboardPage() {
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
-                className="w-[240px] justify-start text-left font-normal"
+                className="w-[240px] justify-start gap-2 text-left font-normal"
               >
-                <CalendarIcon className="mr-2 h-4 w-4" />
+                <CalendarIcon className="h-4 w-4" />
                 {date ? format(date, "PPP") : <span>Pick a date</span>}
               </Button>
             </PopoverTrigger>
@@ -88,7 +88,7 @@ export default function DashboardPage() {
           </Popover>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="icon">
+              <Button variant="outline" size="icon" className="hover:bg-muted/60">
                 <SlidersHorizontal className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
@@ -141,7 +141,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <Card className="lg:col-span-5">
+        <Card className="lg:col-span-5 hover:-translate-y-0">
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
               <CardTitle>Revenue Overview</CardTitle>
@@ -154,7 +154,7 @@ export default function DashboardPage() {
                 defaultValue={selectedTimeframe}
                 onValueChange={setSelectedTimeframe}
               >
-                <SelectTrigger className="w-[120px]">
+                <SelectTrigger className="w-[130px]">
                   <SelectValue placeholder="Select period" />
                 </SelectTrigger>
                 <SelectContent>
@@ -165,7 +165,7 @@ export default function DashboardPage() {
                   <SelectItem value="1y">Last year</SelectItem>
                 </SelectContent>
               </Select>
-              <Button variant="outline" size="icon">
+              <Button variant="outline" size="icon" className="hover:bg-muted/60">
                 <ChevronDown className="h-4 w-4" />
               </Button>
             </div>
@@ -182,7 +182,7 @@ export default function DashboardPage() {
         </Card>
 
         <div className="lg:col-span-2 grid gap-4">
-          <Card>
+          <Card className="hover:-translate-y-0">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium">
                 Product Analytics
@@ -196,7 +196,7 @@ export default function DashboardPage() {
               )}
             </CardContent>
           </Card>
-          <Card>
+          <Card className="hover:-translate-y-0">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium">
                 Order Statistics
@@ -208,7 +208,7 @@ export default function DashboardPage() {
                   Completed
                 </span>
                 <span className="text-xl font-bold">592</span>
-                <span className="text-xs text-emerald-500 flex items-center">
+                <span className="flex items-center text-xs text-success">
                   <ArrowUpRight className="h-3 w-3 mr-1" />
                   +6.8%
                 </span>
@@ -218,7 +218,7 @@ export default function DashboardPage() {
                   Pending
                 </span>
                 <span className="text-xl font-bold">86</span>
-                <span className="text-xs text-rose-500 flex items-center">
+                <span className="flex items-center text-xs text-destructive">
                   <ArrowUpRight className="h-3 w-3 mr-1" />
                   +2.5%
                 </span>
@@ -228,7 +228,7 @@ export default function DashboardPage() {
                   Failed
                 </span>
                 <span className="text-xl font-bold">14</span>
-                <span className="text-xs text-emerald-500 flex items-center">
+                <span className="flex items-center text-xs text-success">
                   <ArrowUpRight className="h-3 w-3 mr-1" />
                   -3.2%
                 </span>
@@ -248,18 +248,20 @@ export default function DashboardPage() {
       </div>
 
       <Tabs defaultValue="overview" className="space-y-4">
-        <div className="flex items-center justify-between">
-          <TabsList>
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+          <TabsList className="bg-muted/40">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
             <TabsTrigger value="reports">Reports</TabsTrigger>
             <TabsTrigger value="notifications">Notifications</TabsTrigger>
           </TabsList>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="hover:bg-muted/60">
               Export
             </Button>
-            <Button size="sm">View All</Button>
+            <Button size="sm" className="gap-1">
+              View All
+            </Button>
           </div>
         </div>
         

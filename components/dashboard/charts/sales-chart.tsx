@@ -67,20 +67,20 @@ export function SalesChart() {
   };
 
   return (
-    <Card className="border-none shadow-none">
-      <CardContent className="p-0 pt-3">
+    <Card className="border border-border/40 bg-card/95 shadow-glow-sm">
+      <CardContent className="p-5">
         <Tabs 
           defaultValue="revenue" 
           className="w-full"
           onValueChange={() => {}}
         >
-          <div className="flex justify-between items-center mb-4">
-            <TabsList>
+          <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <TabsList className="bg-muted/40">
               <TabsTrigger value="revenue">Revenue</TabsTrigger>
               <TabsTrigger value="profits">Profits</TabsTrigger>
               <TabsTrigger value="customers">Customers</TabsTrigger>
             </TabsList>
-            <TabsList>
+            <TabsList className="self-start bg-muted/40 md:self-center">
               <TabsTrigger 
                 value="7d" 
                 onClick={() => setActiveData("7d")}
@@ -117,8 +117,8 @@ export function SalesChart() {
               <AreaChart data={getDataByTimeframe()} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="hsl(var(--chart-1))" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="hsl(var(--chart-1))" stopOpacity={0} />
+                    <stop offset="5%" stopColor="var(--color-primary)" stopOpacity={0.7} />
+                    <stop offset="95%" stopColor="var(--color-primary)" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <XAxis 
@@ -139,7 +139,7 @@ export function SalesChart() {
                   }}
                   style={{ 
                     fontSize: '12px',
-                    fill: 'hsl(var(--muted-foreground))'
+                    fill: 'var(--color-muted-foreground)'
                   }}
                 />
                 <YAxis 
@@ -154,27 +154,28 @@ export function SalesChart() {
                   }}
                   style={{ 
                     fontSize: '12px',
-                    fill: 'hsl(var(--muted-foreground))'
+                    fill: 'var(--color-muted-foreground)'
                   }}
                 />
                 <CartesianGrid 
                   strokeDasharray="3 3" 
                   vertical={false} 
-                  stroke="hsl(var(--border))" 
+                  stroke="var(--color-border)"
                 />
                 <Tooltip 
                   contentStyle={{ 
-                    backgroundColor: 'hsl(var(--card))',
-                    borderColor: 'hsl(var(--border))',
+                    backgroundColor: 'var(--color-card)',
+                    borderColor: 'var(--color-border)',
                     borderRadius: '0.5rem',
-                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                    boxShadow: '0 16px 40px rgba(15, 23, 42, 0.18)',
+                    color: 'var(--color-foreground)',
                   }}
                   formatter={(value) => [`$${value.toLocaleString()}`, 'Revenue']}
                 />
                 <Area 
                   type="monotone" 
                   dataKey="revenue" 
-                  stroke="hsl(var(--chart-1))" 
+                  stroke="var(--color-primary)" 
                   strokeWidth={2}
                   fillOpacity={1}
                   fill="url(#colorRevenue)" 
@@ -188,8 +189,8 @@ export function SalesChart() {
               <AreaChart data={getDataByTimeframe()} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorProfits" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="hsl(var(--chart-2))" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="hsl(var(--chart-2))" stopOpacity={0} />
+                    <stop offset="5%" stopColor="var(--color-accent)" stopOpacity={0.7} />
+                    <stop offset="95%" stopColor="var(--color-accent)" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <XAxis 
@@ -199,7 +200,7 @@ export function SalesChart() {
                   tickMargin={10}
                   style={{ 
                     fontSize: '12px',
-                    fill: 'hsl(var(--muted-foreground))'
+                    fill: 'var(--color-muted-foreground)'
                   }}
                 />
                 <YAxis 
@@ -214,27 +215,28 @@ export function SalesChart() {
                   }}
                   style={{ 
                     fontSize: '12px',
-                    fill: 'hsl(var(--muted-foreground))'
+                    fill: 'var(--color-muted-foreground)'
                   }}
                 />
                 <CartesianGrid 
                   strokeDasharray="3 3" 
                   vertical={false} 
-                  stroke="hsl(var(--border))" 
+                  stroke="var(--color-border)" 
                 />
                 <Tooltip 
                   contentStyle={{ 
-                    backgroundColor: 'hsl(var(--card))',
-                    borderColor: 'hsl(var(--border))',
+                    backgroundColor: 'var(--color-card)',
+                    borderColor: 'var(--color-border)',
                     borderRadius: '0.5rem',
-                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                    boxShadow: '0 16px 40px rgba(15, 23, 42, 0.18)',
+                    color: 'var(--color-foreground)',
                   }}
                   formatter={(value) => [`$${value.toLocaleString()}`, 'Profits']}
                 />
                 <Area 
                   type="monotone" 
                   dataKey="profits" 
-                  stroke="hsl(var(--chart-2))" 
+                  stroke="var(--color-accent)" 
                   strokeWidth={2}
                   fillOpacity={1}
                   fill="url(#colorProfits)" 
@@ -248,8 +250,8 @@ export function SalesChart() {
               <AreaChart data={getDataByTimeframe()} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorCustomers" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="hsl(var(--chart-4))" stopOpacity={0.8} />
-                    <stop offset="95%" stopColor="hsl(var(--chart-4))" stopOpacity={0} />
+                    <stop offset="5%" stopColor="var(--color-success)" stopOpacity={0.7} />
+                    <stop offset="95%" stopColor="var(--color-success)" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <XAxis 
@@ -259,7 +261,7 @@ export function SalesChart() {
                   tickMargin={10}
                   style={{ 
                     fontSize: '12px',
-                    fill: 'hsl(var(--muted-foreground))'
+                    fill: 'var(--color-muted-foreground)'
                   }}
                 />
                 <YAxis 
@@ -268,27 +270,28 @@ export function SalesChart() {
                   tickMargin={10}
                   style={{ 
                     fontSize: '12px',
-                    fill: 'hsl(var(--muted-foreground))'
+                    fill: 'var(--color-muted-foreground)'
                   }}
                 />
                 <CartesianGrid 
                   strokeDasharray="3 3" 
                   vertical={false} 
-                  stroke="hsl(var(--border))" 
+                  stroke="var(--color-border)" 
                 />
                 <Tooltip 
                   contentStyle={{ 
-                    backgroundColor: 'hsl(var(--card))',
-                    borderColor: 'hsl(var(--border))',
+                    backgroundColor: 'var(--color-card)',
+                    borderColor: 'var(--color-border)',
                     borderRadius: '0.5rem',
-                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                    boxShadow: '0 16px 40px rgba(15, 23, 42, 0.18)',
+                    color: 'var(--color-foreground)',
                   }}
                   formatter={(value) => [value.toLocaleString(), 'Customers']}
                 />
                 <Area 
                   type="monotone" 
                   dataKey="customers" 
-                  stroke="hsl(var(--chart-4))" 
+                  stroke="var(--color-success)" 
                   strokeWidth={2}
                   fillOpacity={1}
                   fill="url(#colorCustomers)" 
