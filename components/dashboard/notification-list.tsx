@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { Bell, XCircle } from "lucide-react";
 
@@ -159,7 +157,7 @@ export function NotificationList({ onNotificationRead }: NotificationListProps) 
                 )}
               >
                 <div className={cn(
-                  "flex-shrink-0 h-8 w-8 rounded-full flex items-center justify-center",
+                  "shrink-0 h-8 w-8 rounded-full flex items-center justify-center",
                   getTypeStyles(notification.type)
                 )}>
                   <Bell className="h-4 w-4" />

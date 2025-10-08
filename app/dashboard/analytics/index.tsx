@@ -1,4 +1,4 @@
-"use client";
+import { createFileRoute } from "@tanstack/react-router"
 
 import { useState } from "react";
 import { 
@@ -46,6 +46,11 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+
+export const Route = createFileRoute('/dashboard/analytics/')({
+  component: AnalyticsPage,
+})
+
 // Analytics data
 const pageViewData = [
   { page: "/products", views: 12453, prevViews: 10234, bounce: "32%" },
@@ -80,7 +85,9 @@ const countryData = [
   { country: "Other", visitors: 4498, percentage: 17.1 },
 ];
 
-export default function AnalyticsPage() {
+
+
+function AnalyticsPage() {
   const [period, setPeriod] = useState("30d");
 
   return (

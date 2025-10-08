@@ -1,8 +1,5 @@
-"use client";
-
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { 
   LayoutDashboard, 
   BarChart2, 
@@ -105,7 +102,8 @@ interface SidebarProps {
 }
 
 export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
-  const pathname = usePathname();
+  const router = useRouterState();
+  const pathname = router.location.pathname;
   const [isMounted, setIsMounted] = useState(false);
 
   // Fix hydration issues
@@ -126,7 +124,7 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
     >
       <div className="flex h-14 items-center px-4 border-b">
         <Link
-          href="/dashboard"
+          to="/dashboard"
           className={cn(
             "flex items-center",
             isCollapsed ? "justify-center w-full" : "justify-start"
@@ -172,7 +170,7 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
                   <Tooltip key={index}>
                     <TooltipTrigger asChild>
                       <Link
-                        href={item.href}
+                        to={item.href}
                         className={cn(
                           "flex items-center rounded-md px-2 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors",
                           pathname === item.href
@@ -213,7 +211,7 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
                   <Tooltip key={index}>
                     <TooltipTrigger asChild>
                       <Link
-                        href={item.href}
+                        to={item.href}
                         className={cn(
                           "flex items-center rounded-md px-2 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors",
                           pathname === item.href
@@ -278,7 +276,7 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button variant="ghost" size="icon" asChild>
-                    <Link href="/auth/sign-in">
+                    <Link to="/auth/sign-in">
                       <LogOut className="h-4 w-4" />
                     </Link>
                   </Button>

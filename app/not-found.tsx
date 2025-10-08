@@ -1,14 +1,9 @@
-"use client";
-
-import Link from "next/link";
-import { useTheme } from "next-themes";
+import { Link } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
 export default function NotFound() {
-  const { theme } = useTheme();
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-background">
       <div className="text-center space-y-6">
@@ -21,7 +16,7 @@ export default function NotFound() {
         </div>
         <div className="flex justify-center gap-4">
           <Button asChild>
-            <Link href="/dashboard">
+            <Link to="/dashboard">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Dashboard
             </Link>

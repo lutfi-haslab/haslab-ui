@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import {
   DollarSign,
@@ -48,6 +46,11 @@ import {
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
+import { createFileRoute } from "@tanstack/react-router";
+
+export const Route = createFileRoute('/dashboard/')({ 
+component: DashboardPage, 
+}) 
 
 export default function DashboardPage() {
   const [isLoading, setIsLoading] = useState(false);

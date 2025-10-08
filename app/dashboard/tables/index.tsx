@@ -1,4 +1,4 @@
-"use client";
+import { createFileRoute } from "@tanstack/react-router"
 
 import React from 'react';
 import { useState } from "react";
@@ -46,6 +46,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 
+
+export const Route = createFileRoute('/dashboard/tables/')({
+  component: TablesPage,
+})
+
 // Generate mock data
 const generateMockData = (count: number) => {
   const statuses = ["active", "inactive", "pending"];
@@ -72,7 +77,7 @@ const generateMockData = (count: number) => {
 const ITEMS_PER_PAGE = 10;
 const mockData = generateMockData(100);
 
-export default function TablesPage() {
+function TablesPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");

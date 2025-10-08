@@ -1,18 +1,17 @@
-"use client";
-
 import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { createFileRoute, Outlet, useRouterState } from "@tanstack/react-router";
 
 import { Sidebar } from "@/components/dashboard/sidebar";
 import { Header } from "@/components/dashboard/header";
 import { getPageTitle } from "@/lib/utils";
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const pathname = usePathname();
+export const Route = createFileRoute('/dashboard')({
+  component: DashboardLayout,
+})
+
+function DashboardLayout() {
+  const router = useRouterState();
+  const pathname = router.location.pathname;
   const [isCollapsed, setIsCollapsed] = useState(false);
   const pageTitle = getPageTitle(pathname);
 
@@ -25,7 +24,7 @@ export default function DashboardLayout({
       <div className="flex flex-col flex-1 overflow-hidden">
         <Header title={pageTitle} />
         <main className="flex-1 overflow-y-auto p-6 bg-background">
-          {children}
+          <Outlet />
         </main>
       </div>
     </div>

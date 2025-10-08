@@ -1,8 +1,4 @@
-"use client";
-
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { Loader2 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -13,14 +9,20 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { toast } from "sonner";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+
+
+export const Route = createFileRoute('/auth/sign-in/')({
+  component: SignInPage,
+})
 
 const formSchema = z.object({
   username: z.string().min(1, { message: "Username is required" }),
   password: z.string().min(1, { message: "Password is required" }),
 });
 
-export default function SignInPage() {
-  const router = useRouter();
+function SignInPage() {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -33,17 +35,17 @@ export default function SignInPage() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    
+
     // Simulate API call with setTimeout
     setTimeout(() => {
       setIsLoading(false);
-      
+
       if (values.username === "admin" && values.password === "admin") {
         toast.success("Logged in successfully!");
-        router.push("/dashboard");
+        navigate({ to: '/dashboard' });
       } else {
-        form.setError("password", { 
-          message: "Invalid credentials. Try username: admin, password: admin" 
+        form.setError("password", {
+          message: "Invalid credentials. Try username: admin, password: admin"
         });
       }
     }, 1000);
@@ -107,7 +109,7 @@ export default function SignInPage() {
       <CardFooter className="flex justify-center">
         <p className="text-sm text-muted-foreground">
           Don't have an account?{" "}
-          <Link href="/auth/sign-up" className="text-primary hover:underline">
+          <Link to="/auth/sign-up" className="text-primary hover:underline">
             Sign up
           </Link>
         </p>

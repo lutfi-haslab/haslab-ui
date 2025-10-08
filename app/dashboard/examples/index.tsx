@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { AlertCircle, Check, Info, Trash2, X } from "lucide-react";
 
@@ -28,8 +26,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { createFileRoute } from "@tanstack/react-router";
 
-export default function ExamplesPage() {
+export const Route = createFileRoute('/dashboard/examples/')({
+  component: ExamplesPage,
+})
+
+function ExamplesPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const showToast = (type: "default" | "success" | "info" | "warning" | "error") => {

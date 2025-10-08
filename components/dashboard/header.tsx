@@ -1,8 +1,6 @@
-"use client";
 import React from 'react';
 import { useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useRouterState } from "@tanstack/react-router";
 import { Bell, Search, Settings, User } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -17,7 +15,8 @@ interface HeaderProps {
 }
 
 export function Header({ title }: HeaderProps) {
-  const pathname = usePathname();
+  const router = useRouterState();
+  const pathname = router.location.pathname;
   const [notificationCount, setNotificationCount] = useState(3);
   
   // Extract breadcrumb segments from pathname

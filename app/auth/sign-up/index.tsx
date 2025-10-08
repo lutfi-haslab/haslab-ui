@@ -1,8 +1,6 @@
-"use client";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router"
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { Loader2 } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -14,6 +12,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { toast } from "sonner";
 
+export const Route = createFileRoute('/auth/sign-up/')({
+  component: SignUpPage,
+})
+
+
 const formSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   email: z.string().email({ message: "Invalid email address" }),
@@ -24,8 +27,8 @@ const formSchema = z.object({
   path: ["confirmPassword"],
 });
 
-export default function SignUpPage() {
-  const router = useRouter();
+function SignUpPage() {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -40,12 +43,12 @@ export default function SignUpPage() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    
+
     // Simulate API call with setTimeout
     setTimeout(() => {
       setIsLoading(false);
       toast.success("Account created successfully!");
-      router.push("/auth/sign-in");
+      navigate({ to: "/auth/sign-in" });
     }, 1500);
   }
 
@@ -133,7 +136,7 @@ export default function SignUpPage() {
       <CardFooter className="flex justify-center">
         <p className="text-sm text-muted-foreground">
           Already have an account?{" "}
-          <Link href="/auth/sign-in" className="text-primary hover:underline">
+          <Link to="/auth/sign-in" className="text-primary hover:underline">
             Sign in
           </Link>
         </p>

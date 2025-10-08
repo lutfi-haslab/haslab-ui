@@ -1,33 +1,24 @@
-"use client";
+import { createFileRoute } from "@tanstack/react-router";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Bell,
+  CreditCard,
+  Layers,
+  Loader2,
+  Lock,
+  Save,
+  Settings as SettingsIcon,
+  Shield,
+  User
+} from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { 
-  User, 
-  Lock, 
-  Bell, 
-  Layers, 
-  CreditCard, 
-  Settings as SettingsIcon,
-  Save,
-  Check,
-  Loader2,
-  Shield,
-  Mail
-} from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Separator } from "@/components/ui/separator";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Switch } from "@/components/ui/switch";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -37,13 +28,18 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Separator } from "@/components/ui/separator";
+import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { toast } from "sonner";
+
+
+export const Route = createFileRoute('/dashboard/settings/')({
+  component: SettingsPage,
+})
 
 const profileFormSchema = z.object({
   fullName: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -93,9 +89,9 @@ function SectionCard({ title, description, icon, children }: SectionCardProps) {
   );
 }
 
-export default function SettingsPage() {
+function SettingsPage() {
   const [isSaving, setIsSaving] = useState(false);
-  
+
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
@@ -104,7 +100,7 @@ export default function SettingsPage() {
 
   function onSubmit(data: ProfileFormValues) {
     setIsSaving(true);
-    
+
     // Simulate API call
     setTimeout(() => {
       setIsSaving(false);
@@ -141,11 +137,11 @@ export default function SettingsPage() {
             Display
           </TabsTrigger>
         </TabsList>
-        
+
         <div className="mt-6">
           <TabsContent value="profile" className="space-y-6">
-            <SectionCard 
-              title="Profile Information" 
+            <SectionCard
+              title="Profile Information"
               description="Update your personal information and public profile"
               icon={<User className="h-5 w-5 text-primary" />}
             >
@@ -184,7 +180,7 @@ export default function SettingsPage() {
                         />
                       </div>
                     </div>
-                    
+
                     <FormField
                       control={form.control}
                       name="bio"
@@ -201,7 +197,7 @@ export default function SettingsPage() {
                         </FormItem>
                       )}
                     />
-                    
+
                     <div className="space-y-2">
                       <h3 className="text-sm font-medium">Social Profiles</h3>
                       <div className="space-y-4">
@@ -253,7 +249,7 @@ export default function SettingsPage() {
                       </div>
                     </div>
                   </div>
-                  
+
                   <Button type="submit" disabled={isSaving}>
                     {isSaving ? (
                       <>
@@ -270,7 +266,7 @@ export default function SettingsPage() {
                 </form>
               </Form>
             </SectionCard>
-            
+
             <SectionCard
               title="Profile Picture"
               description="Upload or update your profile picture"
@@ -281,7 +277,7 @@ export default function SettingsPage() {
                   <AvatarImage src="https://github.com/shadcn.png" alt="Profile" />
                   <AvatarFallback>JD</AvatarFallback>
                 </Avatar>
-                
+
                 <div className="flex flex-col gap-2">
                   <Button variant="outline">
                     Change picture
@@ -293,7 +289,7 @@ export default function SettingsPage() {
               </div>
             </SectionCard>
           </TabsContent>
-          
+
           <TabsContent value="account" className="space-y-6">
             <SectionCard
               title="Account Security"
@@ -318,13 +314,13 @@ export default function SettingsPage() {
                     </div>
                   </div>
                 </div>
-                
+
                 <Button>
                   Update Password
                 </Button>
               </div>
             </SectionCard>
-            
+
             <SectionCard
               title="Two-Factor Authentication"
               description="Add an extra layer of security to your account"
@@ -340,7 +336,7 @@ export default function SettingsPage() {
                 <Switch />
               </div>
             </SectionCard>
-            
+
             <SectionCard
               title="Connected Accounts"
               description="Connect your accounts to enable single sign-on"
@@ -379,7 +375,7 @@ export default function SettingsPage() {
               </div>
             </SectionCard>
           </TabsContent>
-          
+
           <TabsContent value="notifications" className="space-y-6">
             <SectionCard
               title="Notification Preferences"
@@ -419,7 +415,7 @@ export default function SettingsPage() {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="space-y-4">
                   <h3 className="text-sm font-medium">Push Notifications</h3>
                   <div className="space-y-4">
@@ -443,7 +439,7 @@ export default function SettingsPage() {
                     </div>
                   </div>
                 </div>
-                
+
                 <Button>
                   <Save className="mr-2 h-4 w-4" />
                   Save notification settings
@@ -451,7 +447,7 @@ export default function SettingsPage() {
               </div>
             </SectionCard>
           </TabsContent>
-          
+
           <TabsContent value="display" className="space-y-6">
             <SectionCard
               title="Appearance"
@@ -478,7 +474,7 @@ export default function SettingsPage() {
                     </RadioGroup>
                   </div>
                 </div>
-                
+
                 <div className="space-y-4">
                   <h3 className="text-sm font-medium">Density</h3>
                   <div className="grid gap-2">
@@ -494,7 +490,7 @@ export default function SettingsPage() {
                     </RadioGroup>
                   </div>
                 </div>
-                
+
                 <div className="space-y-4">
                   <h3 className="text-sm font-medium">Sidebar</h3>
                   <div className="flex items-center space-x-2">
@@ -504,7 +500,7 @@ export default function SettingsPage() {
                     </Label>
                   </div>
                 </div>
-                
+
                 <Button>
                   <Save className="mr-2 h-4 w-4" />
                   Save display settings
